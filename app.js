@@ -1,12 +1,13 @@
-const { AdyenCheckout, Dropin, Card, GooglePay, PayPal, ApplePay, Ideal } = window.AdyenWeb;
+const { AdyenCheckout, Dropin, Card, GooglePay, ApplePay } = window.AdyenWeb;
 
 // Global configuration
-  
+const sessionData = 'Ab02b4c0!BQABAgCT3QpidCUwdyHMTBPvNrTrkRVzoF51thTCh3Iq1a1bhJbG8jlePEXkhDxxuzwovGQyzVbtobtHqPFUj3lTAHjBpLUBvwOsRcMNQxSaiZQbHMSRjOIHWC9WTNT0wDSrohfNa9ggr8mWY76xj3dYXR1IxQXNMdGzEP6SPxPSKcFVtXmGlRDxdTHGK455q3BFxu8MrdcVKqBCCA3DUb55HVkiEgUnM8sG837FmW2spF9HqKLAu0907UYoRsTIkSWvMXUFrWEunP7E75GgkDS9MUzR4rFAXz5XeDJpfEVkAI92EjX1n0DziGwR+dql3zoQ9MbAij9OvR9zXBBfySgLgpUcxwbdfmqgqZnyBMYzwmyvt4L9J3ajXgPNTZbEUHdjfKSyLTDi0Q/eAxs4nw7Ygd2XoJGIsxya3BIZQGmlvyXHVaTSVOy/D01sHg/nXHz4vv814AcdjSmbayUq2XZHoD4sApXUmMMySjovjT5Rf/w7dPW/xzKVquuRQq+VlWHGiGJnHfWTPLzsK5NpyrIAvHa7/M+CWx8RVP04ymUBsoqaIwR60edFmbgKcaIB+sGzLoHRjrz8eNzeR/iV3EpcC+hAo93+1xO1fC8Be2Ueb64D/NPvk1WZzgBd0nI6YMEmyDGynvJlKJizZ6imxFOl787+QfXQYkiu2js+jmzvwF+9nAzHwaxdT18M9+7zylsASnsia2V5IjoiQUYwQUFBMTAzQ0E1MzdFQUVEODdDMjRERDUzOTA5QjgwQTc4QTkyM0UzODIzRDY4REFDQzk0QjlGRjgzMDVEQyJ917O2da3wKF3t9/2w7AiTD6yJkQsmiWXtkvIgjNne2NrLEripU2YDBrjZOCws1liUOYreZOCmowvPk8xYofxIznDa0Gw1TPrX8hzbLIgMMf4+fY87OUNDsRHkPQGFD+YEueypl+T4fX9LM0v5re8G8rQq3876wY3z95b56W9y09WR691nYfL/rJ1LDnbXXfDNSq62ij1iPONLrZQAGiQ5RPfZTm03gH76ZsSL2VUVIZxS3KCMyLYvSVbgeZNV+wNy9RDBB2dHKN5DmMeGsUW/IiZWcrCbxxd/UMIHx3NT1mBAU/NkSTUZKxAgs4s+ltn1aXTbK+ewXvi301K8C21AWck5L57ZlveoraAvVD/P0Tkosa/xYTJuXeRTif9gQiZxSfs6BLFwlx16pJV6T58vX9bmFfU75f3wb+QfReUxhIiKyU9OGcfhBHWOslBrtxgbu12Wsdff4LfLuHWjekY7aTjYMWyaLWiVfqkyFY1LgoecijDmGWHHpRTJOgqJBno6L0kvaZ6ogJPBuxD6MLbDcYZsCBVJHu1+Wq21FC3SGWcHseoGyLkVeU4J1baOT/hBukT3HvyQYbb3tnfPDpXLVWdDpdlquuBp2qKCMiRG6F1HSKNhRw0yKXg=';
 const globalConfiguration = {
   session: {
-    id: 'CS15A410732A0E0540306A2A3', // Unique identifier for the payment session.
-    sessionData:'Ab02b4c0!BQABAgAZ8Z0sNmK5J+CSBoiuekevHROdNomkQivIAc9aUGgssDVwHFdk74x58czW0J7xZwVFkMyUzRDWG4Lc4fLzI+G24Caq1oyISnzgFUS9lcOEf/E5gYpRsiEO6lZ/mXxlgl6027kr7Tc366q05D8kg3Nu1vwLKsfIMKCmPokdOwqwHuw2IP96aGRrU7W47rxKEPQRKGRlfXggiWfZPYD2OoJEnPXo7KxfN1GGNeODyDMxf62jfA0TRFvjxb1rWwHOMkTHWSZqDsDqSz/ifhrDKfAdRaDJo17ygwUfwGHM8ZQb/8v+22VKv5ZBA/g3zd9dqFQfVzLSSvVDafYCyHkPHCSDzBQrLpbOBUZa7vp/2q5vgfnLSivf9SjEptj1g9uPPfIqMXYkaKEUT6uFKS9sUwxvCgzBMidDmXDz2+jFd0o7dmK/pY/kaCClqlj6JqoJq1lQDJRrNHMsGcpDEHYMVwoThVHGHO1aFd928ZPT5UbDxUsd3eMkrvAcMFMitHsmjEZx698ckIrdj0iMDhqmm2ICOTg7t6c0oMdntDvGYqgPNdoS2i5e9gm/zIas2GMhyKhqoHG6M7FhNh3Q+9fjg+rhWkMhdZTdlVAgcY0CC8iLeOjXyriFTl0DH56NftcgR6/vH50QHVhQ7XuCrM8kmkC65LtC/meAxolROnbSn4GcDwwpU6HorWmnvUCLS0EASnsia2V5IjoiQUYwQUFBMTAzQ0E1MzdFQUVEODdDMjRERDUzOTA5QjgwQTc4QTkyM0UzODIzRDY4REFDQzk0QjlGRjgzMDVEQyJ9T+v4e4GYVTBDnmJCWnU1lFQpcSjx69REwTNEKubXBoBljbHhZukKg84IPCjh1H/UcaApfhgOmCKi0P/oehw5lH53d0ArXfnOsv7gr/8T0MepqhbYUxr1/ToqHs41LQrUDEjZk0yOSwUPyKUu9UIcBjUD9ytmTSR0XnBpXG2AFWZLGOlVsHhgHxxmlWi0Aitq7Cb3v1mNlP3ihX9zr7lHTSDaaBPY2bQ+QX9FaV4zhu69BCPpchYaI+mMk9E1F/LWBIRoLLWQcg6CUF6GqcJ2UKkvPbdCfYYVJn5FNyreko+IkZHfvd1aKCjLrwBxJjBkojpWChkEyYL3kQ1CoTbpO58l4tIfuAISyK2ECQ667zfJ/CAUYpJWIVJZc6fhkdyqJ41Ry8r7UhkqB7w+5r2yVtHTG1VuKlRUhnoARpmEu8QCfAZs+5TFrZ1wFAK78wrhBCKJ5Fb+YYg1cH89cKulZsmkej4zQ4FHzZOWZscOhUQjpQXDbyzCxO1TnWWxKU/rprW3QQM7Suo9wYkMygerbtjb7+XbevKf0sw/1CJUNq+duixBI+KqmxdjjAuICMoQymFomUOULWZS9x3dKN+TvujQkiqLYhT+WIrksOr1ks6+nJ2jL0IiOQ==',
-      environment: 'test', // Change to 'live' for the live environment.
+    id: 'CS1EA747BCB5D230D195152B6', // Unique identifier for the payment session.
+    sessionData: sessionData
+      },
+  environment: 'test', // Change to 'live' for the live environment.
   amount: {
     value: 1000,
     currency: 'GBP'
@@ -120,6 +121,7 @@ const globalConfiguration = {
 //     console.error('Initialization error:', error);
 //   }
 // })();
+
 
 
 
