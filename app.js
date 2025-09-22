@@ -14,46 +14,8 @@ const globalConfiguration = {
   locale: 'en-US',
   countryCode: 'GB',
   clientKey: 'test_RR44DURBMZFATLBOVWGXDNL64QOGXJ62',
-paymentMethodsResponse: {
-                    "paymentMethods": [
-                {
-                    "brands": [
-                        "amex",
-                        "mc",
-                        "visa"
-                    ],
-                    "name": "Cards",
-                    "type": "scheme"
-                },
-                {
-                    "brands": [
-                        "amex",
-                        "mc",
-                        "visa"
-                    ], 
-                    "configuration": {
-                        "merchantId": "000000000304641",
-                        "merchantName": "JCBWorldParts_Ecommerce_TEST"
-                    },
-                    "name": "Apple Pay",
-                    "type": "applepay"
-                },
-                {
-                    "name": "UPI",
-                    "type": "billdesk_upi"
-                },
-                {
-                    "configuration": {
-                        "merchantId": "50",
-                        "gatewayMerchantId": "JCBWorldParts_Ecommerce_TEST"
-                    },
-                    "name": "Google Pay",
-                    "type": "googlepay"
-                }
-            ]
-           }
             // Replace with your actual client key
-                ,onPaymentCompleted: (result, component) => {
+                onPaymentCompleted: (result, component) => {
                     console.info('Payment completed:', result, component);
                 },
                 onPaymentFailed: (result, component) => {
@@ -158,6 +120,7 @@ paymentMethodsResponse: {
 //     console.error('Initialization error:', error);
 //   }
 // })();
+
 
 
 
